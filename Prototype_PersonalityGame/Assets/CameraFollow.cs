@@ -6,10 +6,9 @@ public class CameraFollow : MonoBehaviour
     public Transform player;                // our player
     public float smoothSpeed = 1.5f;        // speed to smooth transitions instead of snapping to player
     public Vector3 offset;                  // how far back on x, y, z we want to be from our player (otherwise we'll be inside our player)
-
     public bool playerToFollow = false;     // if we should be following a player.
 
-    // Fixed update moves after update() so the player would've
+	// Fixed update moves after update() so the player would've
 	// moved first before we follow them.
 	private void FixedUpdate()
     {
@@ -23,40 +22,24 @@ public class CameraFollow : MonoBehaviour
 
     private void CheckForKeyboardMovement()
     {
-        // So the camera is spun around. Hack to get it to move correctly.
-        Vector3 forward = -Vector3.forward - Vector3.right;
-        Vector3 back    = -forward;
-        Vector3 right   = Vector3.forward + Vector3.left;
-        Vector3 left    = -right;
+        float vertical = Input.GetAxis("Vertical") / 10;
+        float horizontal = Input.GetAxis("Horizontal") / 10;
 
-        Vector3 desiredPos = transform.position;
-        switch (Input.inputString)
+        // So the rotaion of the camera is all messed up so this is a hack
+        // to move it in the right planes.
+        Vector3 forward = new Vector3(-vertical, 0, -vertical);
+        Vector3 right   = new Vector3(-horizontal, 0, horizontal);
+
+        transform.position += forward + right;
+        if (vertical != 0f || horizontal != 0f)
+            playerToFollow = false;
+
+
+        // To snap back to player use spacebar
+        if (Input.GetKey("space"))
         {
-            case "w":
-                desiredPos += forward;
-                playerToFollow = false;
-                break;
-            case "s":
-                desiredPos += back;
-                playerToFollow = false;
-                break;
-            case "a":
-                desiredPos += left;
-                playerToFollow = false;
-                break;
-            case "d":
-                desiredPos += right;
-                playerToFollow = false;
-                break;
-            default:
-                desiredPos = transform.position;
-                break;
+            playerToFollow = true;
         }
-
-        Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, 100 * Time.deltaTime);
-        transform.position = smoothedPos;
- 
-                      
     }
 
     private void FollowPlayer()
