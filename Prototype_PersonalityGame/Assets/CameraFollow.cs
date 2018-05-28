@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
 
     public Transform player;                // our player
-    public float smoothSpeed = 1.5f;      // speed to smooth transitions instead of snapping to player
-    public Vector3 offset;                 // how far back on x, y, z we want to be from our player (otherwise we'll be inside our player)
+    public float smoothSpeed = 1.5f;        // speed to smooth transitions instead of snapping to player
+    public Vector3 offset;                  // how far back on x, y, z we want to be from our player (otherwise we'll be inside our player)
 
+    public bool playerSelected;
 
     // Fixed update moves after update() so the player would've
-    // moved first before we follow them.
-    private void FixedUpdate()
+	// moved first before we follow them.
+	private void FixedUpdate()
     {
         CheckForScrollWheel();
         CheckForKeyboardMovement();
-        FollowPlayer();
-        
+        if (playerSelected)
+        {
+            FollowPlayer();
+        }
     }
 
     private void CheckForKeyboardMovement()

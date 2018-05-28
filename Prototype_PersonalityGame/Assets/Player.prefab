@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114589219479176228}
   m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   agent: {fileID: 0}
+  selected: 0
 --- !u!136 &136659606897831952
 CapsuleCollider:
   m_ObjectHideFlags: 1
