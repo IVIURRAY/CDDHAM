@@ -49,7 +49,7 @@ public class PlayerManager : MonoBehaviour {
             playerOne.selected = true;
             playerOne.destination = hit.point;
 
-            followCam.playerSelected = true;
+            followCam.playerToFollow = true;
             followCam.player = playerOne.transform;
         }
         else if (hit.transform.name == "PlayerTwo")
@@ -60,7 +60,7 @@ public class PlayerManager : MonoBehaviour {
             playerTwo.selected = true;
             playerTwo.destination = hit.point;
 
-            followCam.playerSelected = true;
+            followCam.playerToFollow = true;
             followCam.player = playerTwo.transform;
         }
         else if (selectedPlayer)

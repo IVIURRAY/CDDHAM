@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
     public float smoothSpeed = 1.5f;        // speed to smooth transitions instead of snapping to player
     public Vector3 offset;                  // how far back on x, y, z we want to be from our player (otherwise we'll be inside our player)
 
-    public bool playerSelected;
+    public bool playerToFollow = false;     // if we should be following a player.
 
     // Fixed update moves after update() so the player would've
 	// moved first before we follow them.
@@ -15,7 +15,7 @@ public class CameraFollow : MonoBehaviour
     {
         CheckForScrollWheel();
         CheckForKeyboardMovement();
-        if (playerSelected)
+        if (playerToFollow)
         {
             FollowPlayer();
         }
@@ -34,15 +34,19 @@ public class CameraFollow : MonoBehaviour
         {
             case "w":
                 desiredPos += forward;
+                playerToFollow = false;
                 break;
             case "s":
                 desiredPos += back;
+                playerToFollow = false;
                 break;
             case "a":
                 desiredPos += left;
+                playerToFollow = false;
                 break;
             case "d":
                 desiredPos += right;
+                playerToFollow = false;
                 break;
             default:
                 desiredPos = transform.position;
@@ -50,7 +54,9 @@ public class CameraFollow : MonoBehaviour
         }
 
         Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, 100 * Time.deltaTime);
-        transform.position = smoothedPos;           
+        transform.position = smoothedPos;
+ 
+                      
     }
 
     private void FollowPlayer()
