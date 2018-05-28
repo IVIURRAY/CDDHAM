@@ -97,9 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc37b06a8fa954ff4a95d63b045911ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   agent: {fileID: 0}
   selected: 0
+  destination: {x: 0, y: 0, z: 0}
 --- !u!136 &136659606897831952
 CapsuleCollider:
   m_ObjectHideFlags: 1
